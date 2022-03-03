@@ -1,5 +1,6 @@
 import weather from '../data/current-weather.js'
 import { formatDate, formatTemp } from './utils/format-data.js'
+import { weatherConditionsCodes } from './constants.js'
  //usaremos el $ para hacer referencias a elementos del DOM
 
 //date
@@ -31,8 +32,9 @@ function solarStatus(sunsetTime, sunriseTime) {
   return 'morning'
 }
 
-function setBackground($el, solarStatus) { // recepcionamos el argumento solarStatus
-  $el.style.backgroundImage = `url(./images/${solarStatus}-drizzle.jpg)`
+function setBackground($el, conditionCode, solarStatus) { // recepcionamos el argumento solarStatus
+  const weatherType = weatherConditionsCodes[conditionCode] //tremos la condicion que tiene el nombre del tiempo
+  $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}.jpg)`
 }
 
 //
@@ -53,7 +55,8 @@ function configCurrentWeather(weather){
   const sunriseTime = new Date(weather.sys.sunrise * 1000) //creamos nuevas fechas con new Date
   const sunsetTime = new Date(weather.sys.sunset * 1000)
   const $app = document.querySelector('#app')
-  setBackground($app, solarStatus(sunriseTime, sunsetTime)) // pasaremos la función solarStatus y debolvermo como argumento
+  const conditionCode = String(weather.weather[0].id).charAt(0)// condicion del nombre del clima clean/drezzly/rainy etc
+  setBackground($app, conditionCode, solarStatus(sunriseTime, sunsetTime)) // pasaremos la función solarStatus y debolvermo como argumento
 }
 
 
@@ -61,3 +64,4 @@ export default function currentWeather() {
   configCurrentWeather(weather)
   console.log('Weather')
 }
+
