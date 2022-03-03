@@ -34,7 +34,9 @@ function solarStatus(sunsetTime, sunriseTime) {
 
 function setBackground($el, conditionCode, solarStatus) { // recepcionamos el argumento solarStatus
   const weatherType = weatherConditionsCodes[conditionCode] //tremos la condicion que tiene el nombre del tiempo
-  $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}.jpg)`
+  const size = window.matchMedia('(-webkit-min-device-pixel-ratio: 2)').matches ? '@2x' : '' //
+  //true ? '@2x' : '' //operador ternario, si el valor es true, dara como resultado '@2x' ó ''
+  $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}${size}.jpg)`
 }
 
 //
