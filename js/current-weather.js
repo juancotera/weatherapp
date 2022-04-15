@@ -1,7 +1,8 @@
-import weather from '../data/current-weather.js'
+// import weather from '../data/current-weather.js'
 import { formatDate, formatTemp } from './utils/format-data.js'
 import { weatherConditionsCodes } from './constants.js'
 import { getLatlon } from './geolocation.js'
+import { getCurrentWeather } from './services/weather.js'
 
  //usaremos el $ para hacer referencias a elementos del DOM
 
@@ -68,8 +69,8 @@ export default async function currentWeather() {
   //GEO | API-WEATHER | CONFIG
   console.log('esto pasa ANTES de getCurrentPosition')
   const {lat, lon, isError} = await getLatlon()
-  if (isError) return console.log('Ah ocurrido un error ubicandote')
-  console.log(lat, lon)
+  if (isError) return console.log('ha ocurrido un error ubicandote')
+  // console.log(lat, lon)
   // .then((data) =>{
   //   console.log('hemos triunfado', data)
   // })
@@ -77,6 +78,8 @@ export default async function currentWeather() {
   //   console.log(message)
   // })
   // console.log('esto pasa DESPUES de getCurrentPosition')
+  const { isError: currentWeatherError , data: weather} = await getCurrentWeather(lat, lon)
+  if (currentWeatherError) return console.log('oh! ha ourrido un error trayendo los datos del cliente')
   configCurrentWeather(weather)
   // console.log('Weather')
 }
