@@ -1,0 +1,1 @@
+fetch() //fetch devulve una promesa
