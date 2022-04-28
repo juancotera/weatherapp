@@ -42,9 +42,18 @@ function setBackground($el, conditionCode, solarStatus) { // recepcionamos el ar
   $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}${size}.jpg)`
 }
 
+function showCurrentWeather($app, $loader) {
+  $app.hidden = false
+  $loader.hidden = true
+}
+
 //
 function configCurrentWeather(weather){
+  const $app = document.querySelector('#app')
+  const $loading = document.querySelector('#loading')
+
   //loader
+  showCurrentWeather($app, $loading)
   //date
   const $currentWeatherDate = document.querySelector('#current-weather-date')
   setCurrentDate($currentWeatherDate)
@@ -59,7 +68,6 @@ function configCurrentWeather(weather){
   //background
   const sunriseTime = new Date(weather.sys.sunrise * 1000) //creamos nuevas fechas con new Date
   const sunsetTime = new Date(weather.sys.sunset * 1000)
-  const $app = document.querySelector('#app')
   const conditionCode = String(weather.weather[0].id).charAt(0)// condicion del nombre del clima clean/drezzly/rainy etc
   setBackground($app, conditionCode, solarStatus(sunriseTime, sunsetTime)) // pasaremos la función solarStatus y debolvermo como argumento
 }
