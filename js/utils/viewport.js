@@ -1,3 +1,7 @@
+//se debe configurar el tamaño del Viewport
+//para que en el cualquier dispositivo tome su alto y pueda observars de manera
+// correcta.
+
 export function setViewportSize($el) {
   const ViewportBlockSize = getViewport()
   $el.style.blockSize = `${ViewportBlockSize}px`
