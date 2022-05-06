@@ -75,7 +75,7 @@ function configCurrentWeather(weather){
 
 export default async function currentWeather() {
   //GEO | API-WEATHER | CONFIG
-  console.log('esto pasa ANTES de getCurrentPosition')
+  //console.log('esto pasa ANTES de getCurrentPosition')
   const {lat, lon, isError} = await getLatlon()
   if (isError) return console.log('ha ocurrido un error ubicandote')
   // console.log(lat, lon)
